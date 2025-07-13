@@ -1,6 +1,6 @@
 path: data
-train: data/images/train
-val: data/images/val
+train: /home/ec2-user/SageMaker/Smart_Industrial_Tracker/data/images/train
+val: /home/ec2-user/SageMaker/Smart_Industrial_Tracker/data/images/val
 
 nc: 1
 names: ['bottle']

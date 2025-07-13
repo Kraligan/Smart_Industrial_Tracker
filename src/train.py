@@ -1,8 +1,8 @@
 from ultralytics import YOLO
 
 # === Configuration ===
-MODEL_PATH = "yolov11.pt"
-DATA_CONFIG = "data.yaml"
+MODEL_PATH = "yolo11m.pt"
+DATA_CONFIG = "../data.yaml"
 IMG_SIZE = 640
 EPOCHS = 50
 BATCH_SIZE = 16
@@ -21,6 +21,6 @@ if __name__ == "__main__":
         project=PROJECT_NAME,
         name=RUN_NAME,
         exist_ok=True,
-        patience=5,              # early stopping
+        patience=10,              # early stopping
         verbose=True
     )
