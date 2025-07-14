@@ -1,30 +1,30 @@
 # 📦 Smart Industrial Tracker
 
-> Fine-tuned YOLOv11 model for object tracking and productivity monitoring on a simulated production line.
+> Fine-tuned YOLOv11 model for object detection and productivity monitoring on a simulated production line.
+![Demo Video](video/output.gif)
 
 ---
 
 ## Project Overview
 
-**Smart Industrial Tracker** is a computer vision project designed to track and count objects moving on a production line using a fine-tuned YOLOv11 model. This project demonstrates how computer vision can be used to automate industrial monitoring, track the efficiency of a process, and detect potential anomalies.
+**Smart Industrial Tracker** is a computer vision project designed to detect and count objects moving on a production line using a fine-tuned YOLOv11 model. This project demonstrates how computer vision can be used to automate industrial monitoring, track the efficiency of a process, and detect potential anomalies.
 
 The goal is to build a fully functional object tracking pipeline capable of:
 
 - Detecting objects in motion on a production line.
-- Assigning persistent object IDs using tracking.
 - Counting the total number of items processed.
-- Raising alerts when objects stop or pile up (simulate quality check or error).
-- Visualizing results in real time with a clear, user-friendly overlay.
+- optionnaly raising alerts when objects stop or pile up (simulate quality check or error).
+- Visualizing results in real time.
 
 ---
 
 ## Dataset & Source Video
 
 - The training dataset is built by **extracting and annotating frames** from the following public video:
+  **Source**: [Bottle Conveyor System (YouTube)](https://www.youtube.com/watch?v=K1KBXj7q_z0)
 
-  📹 **Source**: [Bottle Conveyor System (YouTube)](https://www.youtube.com/watch?v=K1KBXj7q_z0)
-
-- Manual annotation is done using CVAT and exported in **YOLO format**.
+- Frames extracted with `ffmpeg` at 6 FPS
+- Manual annotation is done using CVAT, exported in **YOLO format** and split into `train/val`.
 
 ---
 
@@ -43,22 +43,45 @@ The goal is to build a fully functional object tracking pipeline capable of:
 3. **Tracking & Counting**
    - track objects with IDs.
    - Count unique objects crossing a predefined line
-   - Monitor stopped or misaligned objects
 
 4. **Visualization & Export**
    - Display real-time annotated video
 
 ---
 
-## Results
+## Lessons Learned
 
-To be added soon.
+This project provided valuable hands-on experience with:
+
+- **Dataset creation**: learning to extract and prepare high-quality frames for annotation.
+- **Annotation strategy**: it’s **better to annotate full-resolution images** than resized (640x640), especially when working with **transparent objects** like glass bottles. Resizing before annotation makes small visual cues hard to see, even for a human annotator.
+- **CVAT usage**: understanding how to organize annotation projects, define labels, and export YOLO-format data.
+- **YOLOv11 fine-tuning**: how to train a model, adjust confidence thresholds, and interpret predictions.
+- **Tracking limitations**: using `model.track()` with ByteTrack or DeepSORT is not well suited when objects are **visually identical**, as re-identification fails easily. In this case, a simple detection instead of tracking with ID was better.
+- I now better understand **when to use detection vs. tracking**:
+  - Use **tracking** when object appearance varies (e.g., people, vehicles).
+  - Use **detection-only** when objects are identical and counting is enough.
 
 ---
 
-## ▶️ How to Use
+## How to Use
 
-Coming soon: setup instructions and example usage commands.
+```bash
+# Clone the project to your folder
+git clone https://github.com/Kraligan/Smart_Industrial_Tracker.git
+
+# Create virtual environment and Install requirements
+cd smart_industrial_tracker/
+python3 -m venv venv
+source venv/bin/active
+pip install -r requirements.txt
+
+# Train the model
+python src/train.py
+
+# Run inference + counting
+python src/inf.py
+```
 
 ---
 
