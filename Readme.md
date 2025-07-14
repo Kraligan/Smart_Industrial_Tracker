@@ -66,20 +66,26 @@ This project provided valuable hands-on experience with:
 
 ## How to Use
 
+Clone the project to your folder:
 ```bash
-# Clone the project to your folder
 git clone https://github.com/Kraligan/Smart_Industrial_Tracker.git
+```
 
-# Create virtual environment and Install requirements
+Create virtual environment and Install requirements:
+```bash
 cd smart_industrial_tracker/
 python3 -m venv venv
 source venv/bin/active
 pip install -r requirements.txt
+```
 
-# Train the model
+Train the model:
+```bash
 python src/train.py
+```
 
-# Run inference + counting
+Run inference + counting:
+```bash
 python src/inf.py
 ```
 
